@@ -89,7 +89,7 @@ export default function ProjectChatPage() {
                     className={cn(
                       "rounded-2xl px-4 py-2 inline-block text-sm",
                       isMe
-                        ? "bg-blue-500 text-white rounded-br-none"
+                        ? "bg-teal-500 text-white rounded-br-none"
                         : "bg-gray-100 text-gray-800 rounded-bl-none"
                     )}
                   >
@@ -111,7 +111,7 @@ export default function ProjectChatPage() {
               placeholder="メッセージを入力..."
               className="h-11"
             />
-            <Button onClick={handleSend} disabled={!text.trim()} className="h-11 bg-blue-500 hover:bg-blue-600">
+            <Button onClick={handleSend} disabled={!text.trim()} className="h-11 bg-teal-500 hover:bg-teal-600">
               <Send className="w-4 h-4" />
             </Button>
           </div>

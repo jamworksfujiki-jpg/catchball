@@ -30,7 +30,9 @@ export function Sidebar() {
       <div className="p-6 border-b border-gray-100">
         <Link href="/dashboard" className="flex items-center gap-3">
           <span className="text-3xl">⚾</span>
-          <span className="text-xl font-bold text-gray-800">キャッチボール</span>
+          <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
+            キャッチボール
+          </span>
         </Link>
       </div>
 
@@ -46,28 +48,18 @@ export function Sidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-all",
+                "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
                 isActive
-                  ? "bg-blue-50 text-blue-600"
-                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  ? "bg-gradient-to-r from-teal-50 to-cyan-50 text-teal-700 border border-teal-100"
+                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-800"
               )}
             >
-              <Icon className={cn("w-5 h-5", isActive && "text-blue-500")} />
+              <Icon className={cn("w-5 h-5", isActive && "text-teal-500")} />
               {item.label}
             </Link>
           );
         })}
       </nav>
-
-      {/* Footer hint */}
-      <div className="p-4 border-t border-gray-100">
-        <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-xl p-4">
-          <p className="text-xs text-gray-500 leading-relaxed">
-            ボールを持ちすぎていませんか？<br />
-            チームに投げて仕事を前に進めよう！
-          </p>
-        </div>
-      </div>
     </aside>
   );
 }

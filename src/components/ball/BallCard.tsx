@@ -1,14 +1,12 @@
 "use client";
 
-import { Ball, getBallTemperature, BALL_TEMP_CONFIG, BALL_STATUS_LABELS, Member } from "@/types";
+import { Ball, getBallTemperature, BALL_TEMP_CONFIG, Member } from "@/types";
 import { BallIcon } from "./BallIcon";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Clock, AlertTriangle } from "lucide-react";
+import { ArrowRight, Check, Clock } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 
@@ -37,92 +35,105 @@ export function BallCard({
   const holder = members.find((m) => m.uid === ball.holderId);
   const holdingTime = formatDistanceToNow(holdingSince, { locale: ja, addSuffix: false });
 
+  const isCompleted = ball.status === "completed";
+  const isBurning = temperature === "burning";
+  const isHot = temperature === "hot";
+
   return (
     <motion.div
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -100 }}
-      whileHover={{ scale: 1.01 }}
-      className={cn(
-        temperature === "burning" && "animate-shake"
-      )}
+      className={cn(isBurning && !isCompleted && "animate-shake")}
     >
-      <Card
+      <div
         className={cn(
-          "cursor-pointer border-l-4 transition-all hover:shadow-md",
-          temperature === "cool" && "border-l-blue-400",
-          temperature === "warm" && "border-l-yellow-400",
-          temperature === "hot" && "border-l-orange-400",
-          temperature === "burning" && "border-l-red-500",
-          ball.status === "completed" && "border-l-green-400 opacity-70",
+          "bg-white rounded-xl border p-3.5 cursor-pointer transition-all hover:shadow-sm",
+          isCompleted
+            ? "border-gray-200 bg-gray-50"
+            : isBurning
+            ? "border-red-200 border-l-4 border-l-red-500"
+            : isHot
+            ? "border-orange-200 border-l-4 border-l-orange-400"
+            : "border-gray-200 hover:border-teal-200",
           ball.isInterruption && "border-dashed"
         )}
         onClick={() => onClick?.(ball)}
       >
-        <CardContent className="p-4">
-          <div className="flex items-start gap-3">
-            <BallIcon temperature={ball.status === "completed" ? "cool" : temperature} size="sm" />
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                {projectName && (
-                  <span className="text-xs text-gray-400">{projectName}</span>
-                )}
-                {ball.isInterruption && (
-                  <Badge variant="outline" className="text-[10px] px-1.5 py-0 text-orange-500 border-orange-300">
-                    割り込み
-                  </Badge>
-                )}
-                {ball.priority === "urgent" && (
-                  <Badge variant="destructive" className="text-[10px] px-1.5 py-0">
-                    急ぎ
-                  </Badge>
-                )}
-              </div>
-              <h4 className="font-medium text-gray-800 truncate">{ball.title}</h4>
-              <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
-                <Avatar className="w-5 h-5">
-                  <AvatarFallback className="text-[10px] bg-gray-100">
-                    {holder?.displayName?.slice(0, 1) || "?"}
-                  </AvatarFallback>
-                </Avatar>
-                <span>{holder?.displayName || "未割当"}</span>
-                {ball.status !== "completed" && (
-                  <>
-                    <Clock className="w-3 h-3 ml-2" />
-                    <span className={cn(config.color, "text-xs")}>{holdingTime}</span>
-                  </>
-                )}
-              </div>
+        <div className="flex items-start gap-3">
+          <BallIcon temperature={isCompleted ? "cool" : temperature} size="sm" />
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 mb-1 flex-wrap">
+              {projectName && (
+                <span className="text-[11px] bg-teal-50 text-teal-600 px-1.5 py-0.5 rounded-md font-medium">
+                  {projectName}
+                </span>
+              )}
+              {ball.isInterruption && (
+                <span className="text-[10px] bg-amber-50 text-amber-600 px-1.5 py-0.5 rounded-md font-bold">
+                  割り込み
+                </span>
+              )}
+              {ball.priority === "urgent" && (
+                <span className="text-[10px] bg-red-500 text-white px-1.5 py-0.5 rounded-md font-bold">
+                  急ぎ
+                </span>
+              )}
             </div>
-            {isMyBall && ball.status !== "completed" && (
-              <div className="flex gap-1 shrink-0">
-                {onToss && (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={(e) => { e.stopPropagation(); onToss(ball); }}
-                    className="text-xs h-8"
-                  >
-                    <ArrowRight className="w-3 h-3 mr-1" />
-                    投げる
-                  </Button>
-                )}
-                {onComplete && (
-                  <Button
-                    size="sm"
-                    onClick={(e) => { e.stopPropagation(); onComplete(ball); }}
-                    className="text-xs h-8 bg-green-500 hover:bg-green-600"
-                  >
-                    <Check className="w-3 h-3 mr-1" />
-                    完了
-                  </Button>
-                )}
-              </div>
-            )}
+            <h4 className={cn("font-bold text-sm", isCompleted ? "text-gray-400 line-through" : "text-[#1B1B27]")}>
+              {ball.title}
+            </h4>
+            <div className="flex items-center gap-2 mt-1.5 text-xs text-gray-400">
+              <Avatar className="w-5 h-5">
+                <AvatarFallback className="text-[9px] bg-teal-50 font-bold text-teal-600">
+                  {holder?.displayName?.slice(0, 1) || "?"}
+                </AvatarFallback>
+              </Avatar>
+              <span className="font-medium text-gray-500">{holder?.displayName || "未割当"}</span>
+              {!isCompleted && (
+                <span className={cn(
+                  "flex items-center gap-1",
+                  isBurning ? "text-red-500 font-bold" : isHot ? "text-orange-500 font-bold" : "text-gray-400"
+                )}>
+                  <Clock className="w-3 h-3" />
+                  {holdingTime}
+                </span>
+              )}
+              {isCompleted && (
+                <span className="text-emerald-500 font-medium flex items-center gap-1">
+                  <Check className="w-3 h-3" /> 完了
+                </span>
+              )}
+            </div>
           </div>
-        </CardContent>
-      </Card>
+          {isMyBall && !isCompleted && (
+            <div className="flex gap-1.5 shrink-0">
+              {onToss && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={(e) => { e.stopPropagation(); onToss(ball); }}
+                  className="text-xs h-8 rounded-lg border-teal-200 text-teal-600 hover:bg-teal-50"
+                >
+                  <ArrowRight className="w-3 h-3 mr-1" />
+                  投げる
+                </Button>
+              )}
+              {onComplete && (
+                <Button
+                  size="sm"
+                  onClick={(e) => { e.stopPropagation(); onComplete(ball); }}
+                  className="text-xs h-8 rounded-lg bg-teal-500 hover:bg-teal-600 text-white"
+                >
+                  <Check className="w-3 h-3 mr-1" />
+                  完了
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
     </motion.div>
   );
 }

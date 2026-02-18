@@ -72,7 +72,7 @@ export default function LoginPage() {
             </div>
             <Button
               type="submit"
-              className="w-full h-12 text-base bg-blue-500 hover:bg-blue-600"
+              className="w-full h-12 text-base bg-teal-500 hover:bg-teal-600"
               disabled={loading}
             >
               {loading ? "ログイン中..." : "ログイン"}

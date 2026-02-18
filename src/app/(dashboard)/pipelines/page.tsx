@@ -62,7 +62,7 @@ export default function PipelinesPage() {
           <h1 className="text-2xl font-bold text-gray-800">🔀 パイプライン</h1>
           <p className="text-gray-500 text-sm mt-1">工事種別ごとの工程テンプレートを管理</p>
         </div>
-        <Button className="bg-blue-500 hover:bg-blue-600" onClick={() => setDialogOpen(true)}>
+        <Button className="bg-teal-500 hover:bg-teal-600" onClick={() => setDialogOpen(true)}>
           <Plus className="w-4 h-4 mr-2" />
           新規作成
         </Button>
@@ -144,7 +144,7 @@ export default function PipelinesPage() {
               </Select>
             </div>
             <Button
-              className="w-full h-11 bg-blue-500 hover:bg-blue-600"
+              className="w-full h-11 bg-teal-500 hover:bg-teal-600"
               disabled={!name}
               onClick={handleCreate}
             >

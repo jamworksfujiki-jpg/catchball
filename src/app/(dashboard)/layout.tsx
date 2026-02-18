@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
@@ -12,14 +12,23 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user, loading, companyId } = useAuth();
+  const { user, loading, companyId, member } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!loading && !user) {
       router.push("/login");
     }
   }, [user, loading, router]);
+
+  useEffect(() => {
+    if (!loading && user && member?.role === "external") {
+      if (!pathname.startsWith("/contractor") && !pathname.startsWith("/settings")) {
+        router.push("/contractor");
+      }
+    }
+  }, [user, loading, member, pathname, router]);
 
   if (loading) {
     return (

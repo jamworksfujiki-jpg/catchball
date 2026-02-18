@@ -137,7 +137,7 @@ export default function CustomerProgressPage() {
                     <div className={cn(
                       "w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0",
                       allCompleted ? "bg-green-500 text-white" :
-                      hasActive ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-400"
+                      hasActive ? "bg-teal-500 text-white" : "bg-gray-200 text-gray-400"
                     )}>
                       {allCompleted ? <Check className="w-5 h-5" /> : i + 1}
                     </div>
@@ -161,6 +161,33 @@ export default function CustomerProgressPage() {
             );
           })}
         </div>
+
+        {/* Contact Info Section */}
+        <Card className="border-0 shadow-md">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg text-gray-700">📞 お問い合わせ</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-gray-500">
+              工事に関するご質問やご要望がございましたら、担当者までお気軽にお問い合わせください。
+            </p>
+            <div className="bg-blue-50 rounded-lg p-4 space-y-2">
+              <div className="flex items-center gap-2 text-sm">
+                <span className="text-gray-500">物件名:</span>
+                <span className="font-medium text-gray-700">{project.name}</span>
+              </div>
+              {project.clientName && (
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-gray-500">お客様名:</span>
+                  <span className="font-medium text-gray-700">{project.clientName}</span>
+                </div>
+              )}
+              <p className="text-xs text-gray-400 mt-2">
+                ※ このページのURLを担当者にお伝えいただくとスムーズです。
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
         <footer className="text-center text-xs text-gray-400 py-8">
           Powered by キャッチボール ⚾

@@ -92,7 +92,7 @@ export default function ProjectsPage() {
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-blue-500 hover:bg-blue-600">
+            <Button className="bg-teal-500 hover:bg-teal-600">
               <Plus className="w-4 h-4 mr-2" />
               新規案件
             </Button>
@@ -171,7 +171,7 @@ export default function ProjectsPage() {
                 </Select>
               </div>
               <Button
-                className="w-full h-11 bg-blue-500 hover:bg-blue-600"
+                className="w-full h-11 bg-teal-500 hover:bg-teal-600"
                 disabled={!form.name || !form.clientName || !form.pipelineId}
                 onClick={handleCreate}
               >

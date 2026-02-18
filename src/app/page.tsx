@@ -39,7 +39,7 @@ export default function LandingPage() {
           <Button variant="ghost" onClick={() => router.push("/login")}>
             ログイン
           </Button>
-          <Button onClick={() => router.push("/register")} className="bg-blue-500 hover:bg-blue-600">
+          <Button onClick={() => router.push("/register")} className="bg-teal-500 hover:bg-teal-600">
             無料で始める
           </Button>
         </div>
@@ -61,8 +61,8 @@ export default function LandingPage() {
             transition={{ delay: 0.3 }}
             className="text-5xl font-bold text-gray-800 mb-6 leading-tight"
           >
-            仕事のボール、<br />
-            <span className="text-blue-500">ちゃんと届いてる？</span>
+            さぁ、<br />
+            <span className="text-teal-500">キャッチボールを始めよう！</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -70,9 +70,9 @@ export default function LandingPage() {
             transition={{ delay: 0.5 }}
             className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
           >
-            建築業の進捗管理を、キャッチボールのように。<br />
-            誰がボールを持っているか一目でわかるから、<br />
-            仕事がスムーズに前に進みます。
+            工務店の「今、誰がボールを持ってる？」を見える化。<br />
+            タスクを投げて、受けて、完了。<br />
+            チーム全員で仕事をテンポよく回そう。
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -82,7 +82,7 @@ export default function LandingPage() {
             <Button
               size="lg"
               onClick={() => router.push("/register")}
-              className="bg-blue-500 hover:bg-blue-600 text-lg px-10 py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all"
+              className="bg-teal-500 hover:bg-teal-600 text-lg px-10 py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all"
             >
               無料で始める
             </Button>

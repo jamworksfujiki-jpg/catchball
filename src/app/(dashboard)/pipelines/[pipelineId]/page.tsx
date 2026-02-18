@@ -101,7 +101,7 @@ export default function PipelineEditPage() {
             <Plus className="w-4 h-4 mr-2" />
             工程を追加
           </Button>
-          <Button className="bg-blue-500 hover:bg-blue-600" onClick={handleSave} disabled={saving}>
+          <Button className="bg-teal-500 hover:bg-teal-600" onClick={handleSave} disabled={saving}>
             <Save className="w-4 h-4 mr-2" />
             {saving ? "保存中..." : "保存"}
           </Button>

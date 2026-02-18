@@ -178,6 +178,63 @@ export function onMessagesChange(
   );
 }
 
+// ============ Invitations ============
+export async function createInvitation(companyId: string, data: {
+  role: string;
+  jobTitle: string;
+  createdBy: string;
+}) {
+  const token = crypto.randomUUID().replace(/-/g, '').slice(0, 16);
+  const ref = collection(db, "companies", companyId, "invitations");
+  const docRef = await addDoc(ref, {
+    ...data,
+    token,
+    createdAt: Timestamp.now(),
+    expiresAt: Timestamp.fromDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)),
+    used: false,
+  });
+  return token;
+}
+
+export async function getInvitationByToken(token: string): Promise<{
+  id: string;
+  companyId: string;
+  companyName: string;
+  role: string;
+  jobTitle: string;
+  token: string;
+  used: boolean;
+  expiresAt: Timestamp;
+  createdAt: Timestamp;
+  createdBy: string;
+} | null> {
+  const companiesSnap = await getDocs(collection(db, "companies"));
+  for (const compDoc of companiesSnap.docs) {
+    const invSnap = await getDocs(
+      query(collection(db, "companies", compDoc.id, "invitations"), where("token", "==", token))
+    );
+    if (!invSnap.empty) {
+      const inv = invSnap.docs[0];
+      const companyDoc = await getDoc(doc(db, "companies", compDoc.id));
+      return {
+        id: inv.id,
+        companyId: compDoc.id,
+        companyName: companyDoc.data()?.name || "",
+        ...inv.data(),
+      } as any;
+    }
+  }
+  return null;
+}
+
+export async function consumeInvitation(companyId: string, invitationId: string) {
+  await updateDoc(doc(db, "companies", companyId, "invitations", invitationId), { used: true });
+}
+
+export async function updateMember(companyId: string, uid: string, data: Partial<Member>) {
+  await updateDoc(doc(db, "companies", companyId, "members", uid), data);
+}
+
 // ============ Default Pipeline Templates ============
 export const DEFAULT_PIPELINES: Omit<Pipeline, "id" | "createdAt">[] = [
   {

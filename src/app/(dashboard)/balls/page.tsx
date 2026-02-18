@@ -167,7 +167,7 @@ export default function BallsPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Button className="w-full h-12 bg-blue-500 hover:bg-blue-600" disabled={!tossTarget} onClick={handleToss}>
+            <Button className="w-full h-12 bg-teal-500 hover:bg-teal-600" disabled={!tossTarget} onClick={handleToss}>
               投げる ⚾
             </Button>
           </div>

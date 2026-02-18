@@ -104,6 +104,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const setCurrentCompany = (cId: string) => {
+    setCompanyId(cId);
+    localStorage.setItem("catchball_companyId", cId);
     if (user) {
       loadMemberAndCompany(user.uid, cId);
     }

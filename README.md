@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# キャッチボール - 建築業向けタスク管理アプリ
 
-## Getting Started
+建築現場のタスクを「ボールの投げ合い」で見える化するWebアプリです。
 
-First, run the development server:
+**本番サイト**: https://catchball-eta.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## はじめかた（初心者向け）
+
+プログラミング経験がなくても大丈夫です。以下の手順でAIにプロンプト（指示）を出して開発できます。
+
+### ステップ1: 必要なソフトをインストール
+
+以下の3つを順番にインストールしてください（全て無料）。
+
+| ソフト | ダウンロードURL | 説明 |
+|--------|----------------|------|
+| **VS Code** | https://code.visualstudio.com/ | コードエディタ（開発の基本ツール） |
+| **Node.js** | https://nodejs.org/ | 「LTS」と書いてある方をダウンロード |
+| **Git** | https://git-scm.com/ | インストール時は全て初期設定のままでOK |
+
+### ステップ2: VS Codeに「Claude Code」拡張を入れる
+
+1. VS Codeを開く
+2. 左サイドバーの四角いアイコン（拡張機能）をクリック
+3. 検索欄に `Claude Code` と入力
+4. 「Claude Code」をインストール
+5. Anthropicアカウントでログイン（画面の指示に従う）
+
+### ステップ3: プロジェクトをダウンロード
+
+1. VS Codeの**ターミナル**を開く（上部メニュー → ターミナル → 新しいターミナル）
+2. 以下をコピーして貼り付け、Enterを押す：
+
+```
+git clone https://github.com/jamworksfujiki-jpg/catchball.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. 続けて以下を実行：
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+cd catchball
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ステップ4: VS Codeでプロジェクトを開く
 
-## Learn More
+1. VS Code上部メニュー → **ファイル** → **フォルダーを開く**
+2. さきほどダウンロードされた `catchball` フォルダーを選択
 
-To learn more about Next.js, take a look at the following resources:
+### ステップ5: Claude Codeにプロンプトを打つ
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+VS Codeの下部にClaude Codeの入力欄が表示されます。
+ここに日本語で指示を打つだけで、AIがコードを書いてくれます。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### プロンプトの例：
 
-## Deploy on Vercel
+```
+ダッシュボードのボールの色をもっと明るくして
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+チームページにメンバーの写真を表示できるようにして
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+新しいページ「レポート」を追加して、完了タスクの一覧を表示して
+```
+
+```
+ログイン画面のデザインを変えて
+```
+
+AIがコードを変更したら、以下のコマンドで確認できます：
+
+```
+npm run dev
+```
+
+ブラウザで http://localhost:3000 を開くと、変更が反映されています。
+
+---
+
+## よく使うコマンド
+
+| コマンド | 意味 |
+|----------|------|
+| `npm run dev` | ローカルで動かす（開発用） |
+| `npm run build` | 本番用にビルド（エラーチェック） |
+
+---
+
+## 困ったら
+
+- **エラーが出た**: Claude Codeにエラーメッセージを貼り付けて「これを直して」と伝える
+- **元に戻したい**: Claude Codeに「さっきの変更を元に戻して」と伝える
+- **何ができるか分からない**: Claude Codeに「このプロジェクトで何ができる？」と聞く
